@@ -1,0 +1,37 @@
+import pcd8544_fb
+from machine import Pin, SPI
+import time
+
+spi = SPI(0)
+spi.init(baudrate=2000000, polarity=0, phase=0)
+cs = Pin(5)
+dc = Pin(4)
+rst = Pin(8)
+bl = Pin(9, Pin.OUT, value=1)
+
+lcd = pcd8544_fb.PCD8544_FB(spi, cs, dc, rst)
+
+lcd.rect(16, 6, 50, 35, 1)
+lcd.fill_rect(47, 25, 8, 8, 1)
+lcd.fill_rect(23, 25, 8, 8, 1)
+lcd.hline(30, 15, 20, 1)
+lcd.vline(43, 8, 8, 1)
+lcd.vline(35, 8, 8, 1)
+lcd.show()
+while True:
+    lcd.fill_rect(47, 25, 8, 8, 0)
+    
+    lcd.hline(47, 25, 8, 1)
+    lcd.pixel(47, 25, 1)
+    lcd.pixel(48, 26, 1)
+    lcd.pixel(49, 27, 1)
+    lcd.pixel(50, 28, 1)
+    lcd.pixel(51, 29, 1)
+    lcd.pixel(52, 30, 1)
+    lcd.pixel(53, 31, 1)
+    lcd.pixel(54, 32, 1)    
+    lcd.show()
+    time.sleep(1)
+    lcd.fill_rect(47, 25, 8, 8, 1)
+    lcd.show()
+    time.sleep(1)
